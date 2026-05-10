@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vikram Gupta — Senior Backend Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-surface: #f5f5f3;
+      --bg-info: #E6F1FB;
+      --bg-success: #EAF3DE;
+      --text-primary: #111110;
+      --text-secondary: #5F5E5A;
+      --text-muted: #9b9a96;
+      --text-info: #185FA5;
+      --text-success: #3B6D11;
+      --border: rgba(0,0,0,0.1);
+      --border-hover: rgba(0,0,0,0.22);
+      --border-info: rgba(24,95,165,0.3);
+      --border-success: rgba(59,109,17,0.3);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111110;
+        --bg-surface: #1a1a18;
+        --bg-info: #0c1e30;
+        --bg-success: #111d0a;
+        --text-primary: #ededeb;
+        --text-secondary: #9b9a96;
+        --text-muted: #63635d;
+        --text-info: #85B7EB;
+        --text-success: #97C459;
+        --border: rgba(255,255,255,0.1);
+        --border-hover: rgba(255,255,255,0.22);
+        --border-info: rgba(133,183,235,0.3);
+        --border-success: rgba(151,196,89,0.3);
+      }
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+    @keyframes skillPop { from { opacity: 0; transform: scale(0.88); } to { opacity: 1; transform: scale(1); } }
+
+    body {
+      font-family: 'Geist', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 3rem 1rem;
+    }
+
+    .port {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: start;
+      padding-bottom: 1.75rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1.75rem;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .role {
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+
+    .bio {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 440px;
+    }
+
+    .av {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background: var(--bg-info);
+      border: 0.5px solid var(--border-info);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-info);
+      flex-shrink: 0;
+      font-family: 'Geist Mono', monospace;
+      animation: fadeIn 0.6s 0.1s ease both;
+      transition: transform 0.2s ease;
+      user-select: none;
+    }
+
+    .av:hover { transform: scale(1.06) rotate(2deg); }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 11px;
+      text-decoration: none;
+      background: var(--bg);
+      opacity: 0;
+      animation: fadeUp 0.4s ease forwards;
+      transition: border-color 0.15s, color 0.15s, transform 0.15s;
+    }
+
+    .pill:hover { border-color: var(--border-hover); color: var(--text-primary); transform: translateY(-1px); }
+
+    .pill.open {
+      background: var(--bg-success);
+      border-color: var(--border-success);
+      color: var(--text-success);
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--text-success);
+      animation: blink 2s infinite;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 1.75rem;
+    }
+
+    .sc {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      transition: transform 0.2s ease;
+    }
+
+    .sc:hover { transform: translateY(-2px); }
+
+    .sn {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      font-family: 'Geist Mono', monospace;
+    }
+
+    .sl {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      letter-spacing: 0.05em;
+    }
+
+    .sec {
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .sh {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sh::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    .exp-wrap { display: flex; flex-direction: column; gap: 2px; }
+
+    .ec {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      opacity: 0;
+      animation: fadeUp 0.45s ease forwards;
+      transition: border-color 0.15s, transform 0.2s ease;
+    }
+
+    .ec:hover { border-color: var(--border-hover); transform: translateX(3px); }
+    .ec.now { border-color: var(--border-info); }
+
+    .eh {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .eco { font-size: 13px; font-weight: 500; }
+    .eten { font-size: 10px; color: var(--text-muted); font-family: 'Geist Mono', monospace; flex-shrink: 0; }
+    .etitle { font-size: 11px; color: var(--text-info); margin-bottom: 8px; }
+
+    .ebl { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+
+    .ebl li {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .ebl li::before {
+      content: '·';
+      position: absolute;
+      left: 4px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .stags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .st {
+      font-size: 11px;
+      font-family: 'Geist Mono', monospace;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border-radius: 6px;
+      padding: 4px 9px;
+      opacity: 0;
+      animation: skillPop 0.35s cubic-bezier(.22,.68,0,1.3) forwards;
+      transition: transform 0.15s, background 0.15s, color 0.15s;
+      cursor: default;
+    }
+
+    .st:hover { transform: scale(1.06); background: var(--bg-info); color: var(--text-info); }
+    .st.key { color: var(--text-info); background: var(--bg-info); }
+    .st.key:hover { transform: scale(1.06); }
+
+    .hlg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+    .hlc {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      opacity: 0;
+      animation: fadeUp 0.45s ease forwards;
+      transition: transform 0.2s ease, background 0.15s;
+    }
+
+    .hlc:hover { transform: translateY(-2px); background: var(--bg-info); }
+    .hlc:hover .hli, .hlc:hover .hlt, .hlc:hover .hld { color: var(--text-info); }
+
+    .hli { font-size: 18px; color: var(--text-info); margin-bottom: 7px; transition: color 0.15s; }
+    .hlt { font-size: 12px; font-weight: 500; margin-bottom: 3px; transition: color 0.15s; }
+    .hld { font-size: 11px; color: var(--text-secondary); line-height: 1.6; transition: color 0.15s; }
+
+    .edu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .edu:hover { transform: translateY(-2px); }
+    .edui { font-size: 20px; color: var(--text-info); }
+    .edut { font-size: 13px; font-weight: 500; }
+    .edus { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+    .contrib-wrap { display: flex; gap: 2px; flex-wrap: wrap; }
+
+    .cc {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--bg-surface);
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+      transition: transform 0.1s ease;
+    }
+
+    .cc:hover { transform: scale(1.5); }
+    .cc.l1 { background: #C0DD97; }
+    .cc.l2 { background: #97C459; }
+    .cc.l3 { background: #639922; }
+    .cc.l4 { background: #3B6D11; }
+
+    .cm { font-size: 10px; color: var(--text-muted); margin-top: 6px; }
+
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.25rem;
+      border-top: 0.5px solid var(--border);
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-family: 'Geist Mono', monospace;
+    }
+
+    @media (max-width: 520px) {
+      .hero { grid-template-columns: 1fr; }
+      .av { display: none; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .hlg { grid-template-columns: 1fr; }
+      .name { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="port">
+
+    <div class="hero">
+      <div>
+        <h1 class="name">Vikram Gupta</h1>
+        <p class="role">Senior Software Engineer &nbsp;·&nbsp; Backend & Distributed Systems &nbsp;·&nbsp; Gurugram, India</p>
+        <p class="bio">12+ years building high-scale backend systems. Deep expertise in Java, Spring Boot, Kafka & event-driven architecture. Currently at Ticketmaster serving millions of users in real time.</p>
+        <div class="pills">
+          <span class="pill open" style="animation-delay:.30s"><span class="dot"></span>Open to work</span>
+          <a class="pill" href="mailto:vikramnitp@gmail.com" style="animation-delay:.38s"><i class="ti ti-mail" style="font-size:13px" aria-hidden="true"></i>vikramnitp@gmail.com</a>
+          <a class="pill" href="https://linkedin.com/in/vikram-gupta-12a80315" target="_blank" rel="noopener" style="animation-delay:.44s"><i class="ti ti-brand-linkedin" style="font-size:13px" aria-hidden="true"></i>LinkedIn</a>
+          <a class="pill" href="https://github.com/vikramnitp" target="_blank" rel="noopener" style="animation-delay:.50s"><i class="ti ti-brand-github" style="font-size:13px" aria-hidden="true"></i>GitHub</a>
+          <a class="pill" href="tel:+919899377125" style="animation-delay:.56s"><i class="ti ti-phone" style="font-size:13px" aria-hidden="true"></i>+91-98993 77125</a>
+        </div>
+      </div>
+      <div class="av" aria-hidden="true">VG</div>
+    </div>
+
+    <div class="stats">
+      <div class="sc" style="animation-delay:.20s"><div class="sn">12+</div><div class="sl">Years experience</div></div>
+      <div class="sc" style="animation-delay:.30s"><div class="sn">5</div><div class="sl">Companies</div></div>
+      <div class="sc" style="animation-delay:.40s"><div class="sn">M+</div><div class="sl">Users served</div></div>
+    </div>
+
+    <section class="sec" style="animation-delay:.35s">
+      <div class="sh">Experience</div>
+      <div class="exp-wrap">
+
+        <div class="ec now" style="animation-delay:.40s">
+          <div class="eh">
+            <div><div class="eco">Ticketmaster · Live Nation</div><div class="etitle">Senior Software Engineer</div></div>
+            <span class="eten">May 2022 – Now</span>
+          </div>
+          <ul class="ebl">
+            <li>Real-time event seat maps — sub-100ms p99 latency serving millions of users</li>
+            <li>Spring Boot microservices + Kafka for seat availability &amp; aggregations</li>
+            <li>Python AWS Lambda for vectorized map image processing on demand</li>
+            <li>React.js Map Analyst tool for venue configuration &amp; structural updates</li>
+            <li>AI-assisted delivery using Claude AI for code review, debugging &amp; docs</li>
+          </ul>
+        </div>
+
+        <div class="ec" style="animation-delay:.48s">
+          <div class="eh">
+            <div><div class="eco">Ticketmaster · Live Nation</div><div class="etitle">Software Engineer</div></div>
+            <span class="eten">Feb 2019 – Feb 2022</span>
+          </div>
+          <ul class="ebl">
+            <li>Host Order Injector — aggregating event orders &amp; seat availability via Kafka Streams</li>
+            <li>Seat Stream services for real-time sold/open seat updates across events</li>
+            <li>Resilient high-volume microservices with scalability &amp; performance tuning</li>
+          </ul>
+        </div>
+
+        <div class="ec" style="animation-delay:.54s">
+          <div class="eh">
+            <div><div class="eco">GlobalLogic</div><div class="etitle">Senior Software Engineer</div></div>
+            <span class="eten">Aug 2018 – Jan 2019</span>
+          </div>
+          <ul class="ebl">
+            <li>Cloud-based backend applications on Google Cloud Platform with Spring Boot &amp; Core Java</li>
+          </ul>
+        </div>
+
+        <div class="ec" style="animation-delay:.60s">
+          <div class="eh">
+            <div><div class="eco">TaskBucks</div><div class="etitle">Senior Software Engineer</div></div>
+            <span class="eten">Mar 2016 – Jul 2018</span>
+          </div>
+          <ul class="ebl">
+            <li>BulkEmailing — B2B marketing platform with microservices, real-time campaign analytics &amp; dashboards</li>
+            <li>DataBack &amp; Wifive — B2B/B2C mobile data rewards and Wi-Fi sharing platforms</li>
+            <li>Stack: Spring Boot, Kafka, MongoDB, MySQL, HDFS, HBase, Spark</li>
+          </ul>
+        </div>
+
+        <div class="ec" style="animation-delay:.66s">
+          <div class="eh">
+            <div><div class="eco">PeopleStrong</div><div class="etitle">Software Developer</div></div>
+            <span class="eten">Nov 2013 – Feb 2016</span>
+          </div>
+          <ul class="ebl">
+            <li>Multi-tenant HRMS — HRIS, Payroll, Attendance &amp; Exit workflows for enterprise clients</li>
+            <li>India Skill Survey 2015 &amp; Best Company to Work For 2014 (Business Today)</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="sec" style="animation-delay:.50s">
+      <div class="sh">Skills &amp; tools</div>
+      <div class="stags" id="stags"></div>
+    </section>
+
+    <section class="sec" style="animation-delay:.60s">
+      <div class="sh">Career highlights</div>
+      <div class="hlg">
+        <div class="hlc" style="animation-delay:.65s">
+          <div class="hli"><i class="ti ti-ticket" aria-hidden="true"></i></div>
+          <div class="hlt">Live ticketing at scale</div>
+          <div class="hld">Seat-map systems for millions with sub-100ms latency at Ticketmaster</div>
+        </div>
+        <div class="hlc" style="animation-delay:.71s">
+          <div class="hli"><i class="ti ti-topology-star-3" aria-hidden="true"></i></div>
+          <div class="hlt">Kafka-first engineer</div>
+          <div class="hld">Deep Kafka &amp; Streams expertise across high-throughput production pipelines</div>
+        </div>
+        <div class="hlc" style="animation-delay:.77s">
+          <div class="hli"><i class="ti ti-layers-intersect" aria-hidden="true"></i></div>
+          <div class="hlt">Full-stack polyglot</div>
+          <div class="hld">Java for throughput, TypeScript for APIs, Python for serverless</div>
+        </div>
+        <div class="hlc" style="animation-delay:.83s">
+          <div class="hli"><i class="ti ti-robot" aria-hidden="true"></i></div>
+          <div class="hlt">AI-assisted dev</div>
+          <div class="hld">Active Claude AI practitioner for code review, debugging &amp; MCP integration</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" style="animation-delay:.75s">
+      <div class="sh">Education</div>
+      <div class="edu">
+        <i class="ti ti-school edui" aria-hidden="true"></i>
+        <div>
+          <div class="edut">B.Tech — Computer Science &amp; Engineering</div>
+          <div class="edus">NIT Patna (National Institute of Technology)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" style="animation-delay:.85s">
+      <div class="sh">Contribution activity</div>
+      <div class="contrib-wrap" id="contrib"></div>
+      <p class="cm">Past 24 weeks</p>
+    </section>
+
+    <footer class="footer">
+      <span>vikram gupta · senior backend engineer</span>
+      <span>vikramnitp@gmail.com · gurugram, india</span>
+    </footer>
+
+  </main>
+
+  <script>
+    const skills = [
+      { l: 'Java 8–17', k: true }, { l: 'Apache Kafka', k: true },
+      { l: 'Spring Boot', k: true }, { l: 'Microservices', k: true },
+      { l: 'Event-driven arch', k: true }, { l: 'TypeScript', k: false },
+      { l: 'NestJS', k: false }, { l: 'Python', k: false },
+      { l: 'React.js', k: false }, { l: 'MySQL', k: false },
+      { l: 'MongoDB', k: false }, { l: 'Redis', k: false },
+      { l: 'HBase', k: false }, { l: 'Kafka Streams', k: false },
+      { l: 'AWS Lambda', k: false }, { l: 'AWS S3', k: false },
+      { l: 'Google Cloud', k: false }, { l: 'Docker', k: false },
+      { l: 'Apache Spark', k: false }, { l: 'REST APIs', k: false },
+      { l: 'Git', k: false }, { l: 'Linux', k: false }, { l: 'Claude AI', k: false }
+    ];
+
+    const stags = document.getElementById('stags');
+    skills.forEach((s, i) => {
+      const el = document.createElement('span');
+      el.className = 'st' + (s.k ? ' key' : '');
+      el.textContent = s.l;
+      el.style.animationDelay = (0.55 + i * 0.04) + 's';
+      stags.appendChild(el);
+    });
+
+    const contrib = document.getElementById('contrib');
+    for (let i = 0; i < 168; i++) {
+      const d = document.createElement('div');
+      const r = Math.random();
+      d.className = 'cc' + (r < .25 ? '' : r < .5 ? ' l1' : r < .72 ? ' l2' : r < .88 ? ' l3' : ' l4');
+      d.style.animationDelay = (0.9 + i * 0.004) + 's';
+      contrib.appendChild(d);
+    }
+  </script>
+</body>
+</html>
